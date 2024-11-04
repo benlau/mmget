@@ -1,0 +1,4 @@
+requests>=2.25.1
+flake8>=6.1.0
+flake8-unused-arguments>=0.0.13
+pytest>=7.0.0

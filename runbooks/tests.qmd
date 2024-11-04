@@ -1,0 +1,121 @@
+# Tests Runbook
+
+## Execution with error / need to ask options
+
+```{python}
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath("")))
+from mmget import mmget
+
+mmget(
+).dl(
+    "dummy://any-file.txt?s=10"
+).dl(
+    "dummy://any-file2.txt?s=15"
+).dl(
+    "invalid-url"
+).dl(
+    "dummy://any-file3.txt?ask_options=true"
+).run()
+```
+
+# Download without progress should not show ETA
+
+```{python}
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath("")))
+from mmget import mmget
+
+mmget(
+).dl(
+    "dummy://any-file.txt?s=10&stop=5"
+).dl(
+    "dummy://any-file2.txt?s=15"
+).run()
+```
+
+# Concurrent download tests
+
+- The default number of thread is 5
+
+```{python}
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath("")))
+from mmget import mmget
+
+manager = mmget()
+for i in range(10):
+    manager.dl(f"dummy://any-file{i}.txt?s=10")
+manager.run()
+
+```
+
+# No dl()
+
+```{python}
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath("")))
+from mmget import mmget
+
+manager = mmget()
+mmget().run()
+```
+
+# Test CivitAI
+
+## Download with multiple version available
+
+```{python}
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath("")))
+from mmget import mmget
+
+mmget(
+
+).dl(
+    "https://civitai.com/models/129435/openpose-from-above",
+    "../downloads",
+    dest_type="a1111"
+).run()
+```
+
+## Download without access token.
+
+It should show 401 error.
+
+```{python}
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath("")))
+from mmget import mmget
+
+mmget(
+).dl(
+    "https://civitai.com/models/192338/inkjet-printing",
+    "../downloads",
+    dest_type="a1111"
+).run()
+```
+
+## Download with access token.
+
+```{python}
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath("")))
+from mmget import mmget
+from dotenv import load_dotenv
+load_dotenv(".env")
+mmget(
+).dl(
+    "https://civitai.com/models/192338/inkjet-printing",
+    "../downloads",
+    dest_type="a1111"
+).run()
+```
+
