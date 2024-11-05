@@ -1,3 +1,4 @@
+from typing import Union
 from mmget.reporters.reporter import Reporter, ReporterItemState
 
 
@@ -42,7 +43,7 @@ class ThreadSafeProgressReporter(Reporter):
     def can_ask_options(self) -> bool:
         return self._wrapped.can_ask_options()
 
-    def set_error(self, id: int, error: str | Exception):
+    def set_error(self, id: int, error: Union[str, Exception]):
         self._loop.call_soon_threadsafe(
             lambda: self._wrapped.set_error(id, error)
         )

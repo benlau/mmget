@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import Enum
+from typing import Union
 
 
 class ReporterItemState(str, Enum):
@@ -58,7 +59,7 @@ class Reporter(ABC):
         pass
 
     @abstractmethod
-    def set_error(self, id: int, error: str | Exception):
+    def set_error(self, id: int, error: Union[str, Exception]):
         """
         Set an error message for a specific report item
         """

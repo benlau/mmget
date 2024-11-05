@@ -1,5 +1,6 @@
 import time
 from collections import namedtuple
+from typing import Union
 
 from mmget.downloadspeedestimator import DownloadSpeedEstimator
 from mmget.formatter import Formatter
@@ -103,7 +104,7 @@ class PrintReporter(Reporter):
     def stop(self):
         pass
 
-    def set_error(self, id: int, error: str | Exception):
+    def set_error(self, id: int, error: Union[str, Exception]):
         if isinstance(error, ValueError):
             self.print(id, "Output Path Conflict")
         elif isinstance(error, FileExistsError):

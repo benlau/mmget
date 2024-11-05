@@ -1,3 +1,4 @@
+from typing import Union
 from mmget.formatter import Formatter
 from mmget.downloadspeedestimator import DownloadSpeedEstimator
 import asyncio
@@ -215,7 +216,7 @@ def create_ipyreportor():
             if self._timer_task:
                 self._timer_task.cancel()
 
-        def set_error(self, id: int, error: str | Exception):
+        def set_error(self, id: int, error: Union[str, Exception]):
             if 0 <= id < len(self.rows):
                 error_message = str(error)
                 self.rows[

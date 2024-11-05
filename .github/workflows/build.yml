@@ -1,0 +1,63 @@
+name: Test and Build Package
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'mmget/**'
+      - 'tests/**'
+      - 'setup.py'
+      - 'requirements.txt'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'mmget/**'
+      - 'tests/**'
+      - 'setup.py'
+      - 'requirements.txt'
+      - '.github/workflows/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install black wheel
+
+    - name: test format lint
+      run: |
+        make test format lint
+
+
+    - name: Check for source code changes
+      run: |
+        if git diff --name-only | grep -E 'diff'; then
+          echo "Source code changes detected"
+          git diff
+          exit -1
+        fi
+
+    - name: Build package
+      run: |
+        make build
+
+    - name: Upload dist artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: python-package-distributions-${{ matrix.python-version }}
+        path: dist/
