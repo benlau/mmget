@@ -12,7 +12,8 @@ mmget is a Python library that simplifies downloading files from various sources
 - Jupyter notebook integration with GUI interface
 - Works in console environment
 
-[Screenshot coming soon]
+![Screenshot 2024-11-05 at 2 22 18 AM](https://github.com/user-attachments/assets/e26a3e56-1096-4bd3-913f-2f7a1a51c2fe)
+
 
 ## Installation
 
