@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="mmget",
-    version="0.0.1",
+    version="0.1.0",
     author="Ben Lau",
     author_email="xbenlau@gmail.com",
     description="Multi Model Get - A library to download files from various sources including Hugging Face and Civitai",  # noqa
