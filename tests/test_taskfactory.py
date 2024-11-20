@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 
-from mmget.outputpathvalidator import OutputPathValidator
+from mmget.outputpathmetadata import OutputPathMetadata
 from mmget.tasks.taskfactory import TaskFactory
 from mmget.tasks.civitaitask import CivitAITask
 from mmget.tasks.dummytask import DummyTask
@@ -22,7 +22,7 @@ class TestTaskFactory(unittest.TestCase):
         self.assertIsInstance(task, InvalidTask)
 
     def test_create_invalid_task_with_invalid_path(self):
-        output_path = OutputPathValidator(
+        output_path = OutputPathMetadata(
             "directory-not-existed", dest_type="a1111"
         )
         task = TaskFactory.create(

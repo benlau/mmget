@@ -1,6 +1,6 @@
 import asyncio
 import os
-from mmget.outputpathvalidator import OutputPathValidator
+from mmget.outputpathmetadata import OutputPathMetadata
 from mmget.reporters.reporterfactory import ReporterFactory
 from mmget.tasks.taskfactory import TaskFactory
 from mmget.reporters.threadsafereporter import ThreadSafeProgressReporter
@@ -41,7 +41,7 @@ class Downloader:
         id = len(self.tasks)
         dest = dest if dest is not None else self.dest
         dest_type = dest_type if dest_type is not None else self.dest_type
-        output_path = OutputPathValidator(dest, dest_type=dest_type)
+        output_path = OutputPathMetadata(dest, dest_type=dest_type)
         task = TaskFactory.create(
             id,
             url,

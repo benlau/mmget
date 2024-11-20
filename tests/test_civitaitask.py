@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from mmget.tasks.civitaitask import CivitAITask
-from mmget.outputpathvalidator import OutputPathValidator
+from mmget.outputpathmetadata import OutputPathMetadata
 
 
 class TestCivitAITask(unittest.TestCase):
     def setUp(self):
-        self.output_path = OutputPathValidator(".")
+        self.output_path = OutputPathMetadata(".")
         self.reporter = MagicMock()
         self.task = CivitAITask(
             1,

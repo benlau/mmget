@@ -2,7 +2,7 @@ import os
 from mmget.types import DistType
 
 
-class OutputPathValidator:
+class OutputPathMetadata:
     def __init__(self, dest, dest_type=None):
         if dest is None:
             dest = os.getcwd()
