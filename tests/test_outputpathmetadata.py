@@ -32,3 +32,15 @@ class TestOutputPathValidator(unittest.TestCase):
         metadata = OutputPathMetadata("file-not-existed", dest_type="a1111")
         self.assertFalse(metadata.is_exists)
         self.assertFalse(metadata.is_valid)
+
+    def test_comfyui_prefix(self):
+        metadata = OutputPathMetadata("comfyui:.")
+        self.assertTrue(metadata.is_exists)
+        self.assertTrue(metadata.is_valid)
+        self.assertEqual(metadata.dest_type, "comfyui")
+
+    def test_a1111_prefix(self):
+        metadata = OutputPathMetadata("a1111:.")
+        self.assertTrue(metadata.is_exists)
+        self.assertTrue(metadata.is_valid)
+        self.assertEqual(metadata.dest_type, "a1111")

@@ -47,17 +47,25 @@ mmget(
 
 When downloading models from CivitAI, you may encounter multiple available versions. In Jupyter notebooks, mmget will display an interactive interface allowing you to choose from the available versions. When running from the console, it will display the available versions and pause the download process until you specify a version.
 
-Moreover, if you set the dest_type is either of "a1111" or "comfyui" , it will find check the type of the model and determine the subfolder to be used.
+Moreover, if you set the dest_type to either "a1111" or "comfyui", it will check the type of the model and determine the subfolder to be used. You can set the dest_type in two ways:
+1. Using the `dest_type` parameter
+2. Adding a prefix to the destination path (e.g., "a1111:" or "comfyui:")
 
 ```python
 from mmget import mmget
 
 mget(
-  civitai_token = "" # It is needed if the author require download to have a civitai account
+  civitai_token = ""
+  # It is needed if the author require download to have a civitai account
+  # or you may set MMGET_CIVITAI_TOKEN environment variable
 ).dl(
   "https://civitai.com/models/257749/pony-diffusion-v6-xl",
-  version="V6 (start with this one)",
-  dest_type="comfyui"
+  "/workspace/Comfyui", 
+  version="V6 (start with this one)", # Optional. If you don't provide the version, it will ask you via GUI interface
+  dest_type="comfyui" # Optional. If it is set, it will save the file to /workspace/Comfyui/models/checkpoints
+).dl(
+  "https://civitai.com/models/618692/flux",
+  "comfyui:/workspace/Comfyui" # Save to /workspace/Comfyui/models/checkpoints
 ).run()
 ```
 

@@ -6,6 +6,14 @@ class OutputPathMetadata:
     def __init__(self, dest, dest_type=None):
         if dest is None:
             dest = os.getcwd()
+
+        if isinstance(dest, str) and ":" in dest:
+            prefix, path = dest.split(":", 1)
+            prefix = prefix.lower()
+            if prefix in DistType.__members__.values():
+                dest_type = prefix
+                dest = path
+
         self.absolute_path = os.path.abspath(dest)
         self.dest_type = dest_type
         self.error_message = None
