@@ -17,6 +17,7 @@ class CivitaiAIModelType(str, Enum):
     Lora = "LORA"
     TextualInversion = "TextualInversion"
     VAE = "VAE"
+    LoCon = "LoCon"
 
 
 class SoftwareType(str, Enum):
@@ -30,6 +31,7 @@ class ComfyUIPaths:
         mapping = {
             CivitaiAIModelType.Checkpoint.value: "checkpoints",
             CivitaiAIModelType.Lora.value: "loras",
+            CivitaiAIModelType.LoCon.value: "loras",
             CivitaiAIModelType.VAE.value: "vae",
             CivitaiAIModelType.TextualInversion.value: "embeddings",
         }
@@ -46,6 +48,7 @@ class A1111Paths:
         mapping = {
             CivitaiAIModelType.Checkpoint.value: "Stable-diffusion",
             CivitaiAIModelType.Lora.value: "Lora",
+            CivitaiAIModelType.LoCon.value: "Lora",
             CivitaiAIModelType.VAE.value: "VAE",
             CivitaiAIModelType.TextualInversion.value: "embeddings",
         }
