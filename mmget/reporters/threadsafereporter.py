@@ -1,3 +1,4 @@
+import time
 from typing import Union
 from mmget.reporters.reporter import Reporter, ReporterItemState
 
@@ -6,6 +7,8 @@ class ThreadSafeProgressReporter(Reporter):
     def __init__(self, wrapped: Reporter, loop):
         self._wrapped = wrapped
         self._loop = loop
+        self._last_progress_time = {}  # Store last progress time for each id
+        self._debounce_interval = 1.0  # 1 second debounce interval
 
     def set_reporter(self, reporter):
         self._wrapped = reporter
@@ -26,9 +29,21 @@ class ThreadSafeProgressReporter(Reporter):
         )
 
     def set_progress(self, id: int, bytes_received: int, total_bytes: int):
-        self._loop.call_soon_threadsafe(
-            lambda: self._wrapped.set_progress(id, bytes_received, total_bytes)
-        )
+        # Add debouncer to prevent 'IOPub data rate exceeded
+        # in Jupyter notebook' error in jupyter
+        current_time = time.time()
+        last_time = self._last_progress_time.get(id, 0)
+
+        if (
+            current_time - last_time >= self._debounce_interval
+            or bytes_received == total_bytes
+        ):
+            self._last_progress_time[id] = current_time
+            self._loop.call_soon_threadsafe(
+                lambda: self._wrapped.set_progress(
+                    id, bytes_received, total_bytes
+                )
+            )
 
     def show_message(self, id: int, message: str):
         self._loop.call_soon_threadsafe(
