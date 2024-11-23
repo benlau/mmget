@@ -73,7 +73,7 @@ mget(
 
 Finding the URL of a file inside hugging face is easy. Open the "Files and versions" tab, and choose the file, right click and copy link address.
 
-TBD: Screenshot
+![image](https://github.com/user-attachments/assets/99c35169-9a78-4353-a087-1c46c617bb9f)
 
 ```python
 mmget(
@@ -97,7 +97,7 @@ mmget reads several environment variables:
 ```python
 from dotenv import load_dotenv
 from mmget import mmget
-load_dotenv() # Load environment variable from .env
+load_dotenv(".env") # Load environment variable from .env
 
 mmget(
 ).dl( 
