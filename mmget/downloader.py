@@ -37,7 +37,11 @@ class Downloader:
         self._futures = None
         ThreadPool.get_instance().set_max_workers(max_workers)
 
-    def dl(self, url: str, dest=None, dest_type=None, version=None):
+    def dl(
+        self, url: str, dest=None, dest_type=None, version=None, disabled=False
+    ):
+        if disabled:
+            return self
         id = len(self.tasks)
         dest = dest if dest is not None else self.dest
         dest_type = dest_type if dest_type is not None else self.dest_type
